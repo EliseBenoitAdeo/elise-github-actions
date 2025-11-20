@@ -12,8 +12,8 @@ jobs:
         run: |          
           echo "sha_short=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
       - name: Create issue using REST API
-        env:
-          PAT: ${{ secrets.PAT }}
+#        env:
+#          PAT: ${{ secrets.PAT }}
         shell: bash
         run: |
           curl --request POST \

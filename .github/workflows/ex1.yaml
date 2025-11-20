@@ -3,24 +3,32 @@ on:
   workflow_dispatch:
                
 jobs:
-  job1:
+  job1-run-npm-install:
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout
-      - uses: actions/checkout@v5
+        uses: actions/checkout@v5
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
           node-version: 'lts/*'
       - name: Install npm
-      - run: npm install
-  job2:
+        shell: bash
+        run: |
+          npm install
+  job2-run-npm-test:
+    needs: job1-run-npm-install
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout
-      - uses: actions/checkout@v5
-      - needs: job1
-      - name: Install npm
-      - run: npm install
+        uses: actions/checkout@v5
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 'lts/*'
+      - name: run test
+        shell: bash
+        run: |
+          npm test
 
       
